@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Tạo QR Code</title>
+</head>
+
+<body>
+
+    <form id="qrForm">
+        <h2>Tạo và copy QR</h2>
+        
+        <div class="form-group">
+            <label for="bank_select">Thương hiệu</label>
+            <input list="bank_template" id="bank_select">
+            <datalist id="bank_template">
+                <option value="Tùy chỉnh">
+            </datalist>
+        </div>
+
+        <div class="form-group">
+            <label for="banks">Ngân hàng</label>
+            <input list="bank" id="banks">
+            <datalist id="bank"></datalist>
+        </div>
+
+        <div class="form-group">
+            <label for="ACCOUNT_NO">Số tài khoản</label>
+            <input id="ACCOUNT_NO" type="text">
+        </div>
+
+        <div class="form-group">
+            <label for="ACCOUNT_NAME">Chủ tài khoản</label>
+            <input id="ACCOUNT_NAME" type="text">
+        </div>
+
+        <div class="form-group">
+            <label for="AMOUNT">Số tiền</label>
+            <input id="AMOUNT" type="text">
+        </div>
+
+        <div class="form-group">
+            <label for="DESCRIPTION">Nội dung</label>
+            <input id="DESCRIPTION" type="text">
+        </div>
+
+        <button type="button" class="btn btn-success" id="btnCreateQr">Tạo và copy QR</button>
+
+        <span id="status"></span>
+
+        <img src="" id="imageQR" width="1000px" style="display: none;">
+        <img src="" id="im_show" width="300px">
+    </form>
+
+    <script src="index.js"></script>
+</body>
+
+</html>
