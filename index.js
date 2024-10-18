@@ -220,28 +220,34 @@ var formatCurrentcy = amount => new Intl.NumberFormat('vi-VN', { style: 'currenc
                         }
 
                         canvas.toBlob(async (blob) => {
-                            try {
-                                // Copy ảnh vào clipboard nếu trình duyệt hỗ trợ Clipboard API
-                                if (navigator.clipboard) {
-                                    await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
-                                    document.getElementById('status').innerText = "QR đã được copy!";
-                                    document.getElementById('status').style.color = "#28a745";
-                                } else {
-                                    document.getElementById('status').innerText = "Trình duyệt không hỗ trợ copy!";
+                            // Kiểm tra nếu đang sử dụng PC/laptop hay mobile (gồm cả iPhone/iPad)
+                            const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        
+                            // Nếu là PC/laptop -> chỉ copy
+                            if (!isMobile) {
+                                try {
+                                    if (navigator.clipboard && window.ClipboardItem) {
+                                        await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+                                        document.getElementById('status').innerText = "QR đã được copy!";
+                                        document.getElementById('status').style.color = "#28a745";
+                                    } else {
+                                        throw new Error("Clipboard API không được hỗ trợ.");
+                                    }
+                                } catch (copyError) {
+                                    document.getElementById('status').innerText = "Lỗi copy QR: " + copyError.message;
                                     document.getElementById('status').style.color = "#ff0000";
                                 }
-                            } catch (copyError) {
-                                document.getElementById('status').innerText = "Lỗi copy QR: " + copyError.message;
-                                document.getElementById('status').style.color = "#ff0000";
+                            } 
+                            
+                            // Nếu là mobile (bao gồm iPhone/iPad) -> vừa copy vừa tải về
+                            if (isMobile || !navigator.clipboard) {
+                                const downloadLink = document.createElement('a');
+                                downloadLink.href = URL.createObjectURL(blob);
+                                downloadLink.download = 'qr_code.png'; // Tên file khi tải về
+                                downloadLink.click(); // Kích hoạt tải về máy
+        
+                                document.getElementById('status').innerText += " Ảnh đã được tải về.";
                             }
-        
-                            // Bước 2: Tải ảnh QR về máy
-                            const downloadLink = document.createElement('a');
-                            downloadLink.href = URL.createObjectURL(blob);
-                            downloadLink.download = 'qr_code.png'; // Đặt tên file tải về
-                            downloadLink.click(); // Kích hoạt tải xuống
-        
-                            document.getElementById('status').innerText += " Ảnh đã được tải về.";
                         }, "image/png");
                     }
                 } catch (error) {
