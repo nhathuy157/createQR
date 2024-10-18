@@ -220,9 +220,13 @@ var formatCurrentcy = amount => new Intl.NumberFormat('vi-VN', { style: 'currenc
                         }
 
                         canvas.toBlob(async (blob) => {
-                            navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
-
-                            document.getElementById('status').innerText = "Đã copy QR";
+                            // Lưu ảnh thành file và tải về máy
+                            const downloadLink = document.createElement('a');
+                            downloadLink.href = URL.createObjectURL(blob);
+                            downloadLink.download = 'qr_code.png';  // Tên file tải về
+                            downloadLink.click();
+        
+                            document.getElementById('status').innerText = "Ảnh đã được tải về";
                             document.getElementById('status').style.color = "#28a745";
                         }, "image/png");
                     }
