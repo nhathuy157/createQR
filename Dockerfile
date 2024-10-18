@@ -1,5 +1,5 @@
 # Use the slim version of the node 14 image as our base
-FROM node:18.17.0
+FROM node:14-slim
 
 # Create a directory for our application in the container 
 RUN mkdir -p /usr/src/app
@@ -15,8 +15,8 @@ COPY . .
 ENV PYTHONPATH=${PYTHONPATH}:${PWD}
 
 # Set the environment variable for the application's port
-# (Be sure to replace '3010' with your application's specific port number if different)
-ENV PORT 3010
+# (Be sure to replace '4200' with your application's specific port number if different)
+ENV PORT 4200
 
 # Install 'serve', a static file serving package globally in the container
 RUN npm install -g serve
@@ -26,5 +26,5 @@ RUN npm install
 # Build the React app
 RUN npm run build
 
-# Serve the 'build' directory on port 3010 using 'serve'
-CMD ["serve", "-s", "-l", "3010", "./build"]
+# Serve the 'build' directory on port 4200 using 'serve'
+CMD ["serve", "-s", "-l", "4200", "./build"]
