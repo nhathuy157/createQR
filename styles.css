@@ -1,81 +1,126 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  
-  body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f4f4f4;
-    padding: 20px;
-  }
-  
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Đảm bảo các thành phần bắt đầu từ trên xuống */
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+}
+
+form {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Thêm khoảng cách giữa các phần tử */
+  margin-bottom: 20px; /* Tạo khoảng cách dưới form để QR không bị đè */
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+label {
+  font-size: 14px;
+  color: #555;
+}
+
+input[type="text"],
+input[list] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[list]:focus {
+  border-color: #66afe9;
+  box-shadow: 0 0 5px rgba(102, 175, 233, 0.5);
+}
+
+/* Căn chỉnh hàng ngang cho hai ô input Nội dung */
+.input-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.input-container input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+button {
+  width: 70%;
+  padding: 12px;
+  background: linear-gradient(90deg, #a8e063 0%, #56ab2f 100%);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+button:hover {
+  background: linear-gradient(90deg, #56ab2f 0%, #a8e063 100%);
+}
+
+#imageQR {
+  display: block; /* Đảm bảo hình ảnh QR được hiển thị như block */
+  margin: 20px auto; /* Căn giữa hình QR */
+}
+
+#im_show {
+  display: block; /* Căn giữa bản preview của QR code */
+  margin: 10px auto;
+}
+
+/* Hiển thị trạng thái thông báo */
+#status {
+  text-align: center;
+  font-size: 16px;
+  color: #28a745;
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
   form {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    max-width: 500px;
-    width: 100%;
+      padding: 20px;
   }
-  
-  h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #333;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  label {
-    font-size: 14px;
-    margin-bottom: 5px;
-    display: block;
-    color: #555;
-  }
-  
-  input[type="text"],
-  input[list] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-    margin-top: 5px;
-  }
-  
-  input[type="text"]:focus,
-  input[list]:focus {
-    border-color: #66afe9;
-    outline: none;
-    box-shadow: 0 0 5px rgba(102, 175, 233, 0.5);
-  }
-  
-  button {
-    width: 100%;
-    padding: 10px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #218838;
-  }
-  
-  @media (max-width: 768px) {
-    form {
-      padding: 15px;
-    }
-  }
-  
+}

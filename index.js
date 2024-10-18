@@ -119,6 +119,24 @@ var formatCurrentcy = amount => new Intl.NumberFormat('vi-VN', { style: 'currenc
         ACCOUNT_NO.value = bank.ACCOUNT_NO;
         ACCOUNT_NAME.value = bank.ACCOUNT_NAME;
     }
+      // Tạo phần "Nội dung" ngẫu nhiên
+      const descriptionPrefixInput = document.getElementById('DESCRIPTION_PREFIX');
+      const descriptionSuffixInput = document.getElementById('DESCRIPTION_SUFFIX');
+  
+      // Lấy giá trị tiền tố từ localStorage
+      const savedPrefix = localStorage.getItem('description_prefix');
+      if (savedPrefix) {
+          descriptionPrefixInput.value = savedPrefix;
+      }
+  
+      // Khi người dùng nhập tiền tố, lưu vào localStorage
+      descriptionPrefixInput.addEventListener('input', function () {
+          localStorage.setItem('description_prefix', this.value);
+      });
+  
+      // Tạo giá trị ngẫu nhiên cho hậu tố
+      const timestamp = Date.now();
+      descriptionSuffixInput.value = timestamp;
 
     // Khi người dùng nhấn nút 'Tạo và copy QR'
     document.getElementById('btnCreateQr').addEventListener('click', async function () {
@@ -144,7 +162,7 @@ var formatCurrentcy = amount => new Intl.NumberFormat('vi-VN', { style: 'currenc
             document.getElementById('status').style.color = "#fff";
 
             const bank_id = banks.value.split(' - ')[2]; 
-            const src_template = `https://img.vietqr.io/image/${bank_id}-${ACCOUNT_NO.value}-print.png?amount=${AMOUNT.value}&addInfo=${DESCRIPTION.value}&accountName=${ACCOUNT_NAME.value}`;
+            const src_template = `https://img.vietqr.io/image/${bank_id}-${ACCOUNT_NO.value}-print.png?amount=${AMOUNT.value}&addInfo=${descriptionPrefixInput.value + " "+ descriptionSuffixInput.value}&accountName=${ACCOUNT_NAME.value}`;
             document.getElementById('imageQR').src = src_template;
             im_show.src = imageQR.src;
 
